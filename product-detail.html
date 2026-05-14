@@ -307,7 +307,7 @@ window.onload = sinkronkanSaldoProfil;
             const modal = document.getElementById('paymentModal');
             modal.style.display = 'flex';
             setTimeout(() => { modal.classList.add('show'); }, 10);
-            document.body.style.overflow = 'hidden';
+            
         }
 
         function closeModal() {
@@ -315,7 +315,7 @@ window.onload = sinkronkanSaldoProfil;
             modal.classList.remove('show');
             setTimeout(() => { 
                 modal.style.display = 'none'; 
-                document.body.style.overflow = 'auto';
+                
             }, 300);
         }
 
