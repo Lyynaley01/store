@@ -254,11 +254,18 @@
         .review-item { display: flex; gap: 15px; padding: 20px 0; border-top: 1px solid var(--border-glass); }
         .avatar { width: 44px; height: 44px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
 
-        .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.9); display: none; 
-            justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); 
-        }
+        .modal-overlay {
+    position: fixed !important; /* Memaksa modal menempel di layar HP */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Memenuhi tinggi layar HP */
+    background: rgba(0, 0, 0, 0.85);
+    display: none; /* Default tertutup */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Angka tertinggi agar di atas logo serigala */
+}
         .modal-content { 
             background: var(--modal-bg); width: 90%; max-width: 440px; 
             padding: 40px; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.05); 
@@ -463,9 +470,11 @@ function simpanKeRiwayat(produk, harga) {
         }
 
         function openModal() {
-            document.getElementById('paymentModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'flex';
+    setTimeout(() => { modal.classList.add('show'); }, 10);
+    // HAPUS baris document.body.style.overflow = 'hidden';
+}
 
         function closeModal() {
             document.getElementById('paymentModal').style.display = 'none';
