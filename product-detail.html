@@ -20,35 +20,23 @@
             color: white;
             padding: 15px;
             padding-top: 70px;
-            line-height: 1.5;
         }
 
         /* Navigasi */
         .nav-header {
             position: fixed; top: 0; left: 0; width: 100%;
-            padding: 15px; background: rgba(6, 3, 0, 0.8);
+            padding: 15px; background: rgba(6, 3, 0, 0.9);
             backdrop-filter: blur(10px); z-index: 1000;
             border-bottom: 1px solid var(--border);
-            display: flex; align-items: center;
         }
+        .btn-back { color: white; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
 
-        .btn-back {
-            color: white; text-decoration: none; font-size: 14px;
-            display: flex; align-items: center; gap: 8px;
-        }
-
-        /* Container Utama */
         .main-wrapper { max-width: 1000px; margin: 0 auto; }
 
-        .banner-img {
-            width: 100%; border-radius: 20px; border: 1px solid var(--border);
-            margin-bottom: 20px; display: block;
-        }
+        .banner-img { width: 100%; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; }
 
         h1 { font-size: 28px; margin-bottom: 10px; }
         h1 span { color: var(--primary); }
-
-        .desc { color: #aaa; font-size: 14px; margin-bottom: 25px; }
 
         /* TABS UI */
         .tab-box {
@@ -62,39 +50,44 @@
         .tab-btn.active { background: rgba(255, 140, 0, 0.1); color: var(--primary); }
 
         .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
-        .f-card {
-            background: var(--card); padding: 15px; border-radius: 15px;
-            border: 1px solid var(--border);
-        }
-        .f-card i { color: var(--primary); margin-bottom: 8px; }
-        .f-card h4 { font-size: 14px; }
+        .f-card { background: var(--card); padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center;}
+        .f-card i { color: var(--primary); margin-bottom: 8px; display: block; font-size: 20px;}
 
-        /* PILIHAN PAKET */
+        /* PEMBELIAN */
         .purchase-section {
             background: var(--card); padding: 20px; border-radius: 20px;
-            border: 1px solid var(--border); margin-top: 20px;
+            border: 1px solid var(--border); margin-bottom: 25px;
         }
-
         .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .pkg-item {
             background: #111; border: 1px solid var(--border); padding: 15px;
-            border-radius: 12px; cursor: pointer; text-align: center; transition: 0.2s;
+            border-radius: 12px; cursor: pointer; text-align: center;
         }
-        .pkg-item.active { border-color: var(--primary); background: rgba(255,140,0,0.05); }
-
+        .pkg-item.active { border-color: var(--primary); background: rgba(255,140,0,0.1); }
         .total-price { font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+
+        /* REVIEW SECTION (Seperti Code Awal) */
+        .review-section { margin-top: 30px; padding-bottom: 50px; }
+        .review-title { font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .review-card {
+            background: #0d0d0d; border: 1px solid var(--border);
+            padding: 15px; border-radius: 15px; margin-bottom: 12px;
+        }
+        .rev-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .rev-user { font-weight: bold; font-size: 14px; color: var(--primary); }
+        .rev-stars { color: #ffcc00; font-size: 12px; }
+        .rev-text { font-size: 13px; color: #ccc; font-style: italic; }
 
         /* TOMBOL AKSI */
         .btn-action {
             width: 100%; padding: 16px; border-radius: 12px; border: none;
             font-weight: bold; font-size: 15px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            margin-bottom: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;
         }
         .btn-cart { background: #222; color: #fff; }
         .btn-buy { background: var(--primary); color: #000; }
 
-        /* MODAL FIX - ANTI LONCAT */
+        /* MODAL FIX */
         #paymentModal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); display: none;
@@ -103,8 +96,7 @@
         }
         .modal-content {
             background: #0d0d0d; width: 100%; max-width: 380px;
-            padding: 25px; border-radius: 25px; border: 1px solid #333;
-            text-align: center;
+            padding: 25px; border-radius: 25px; border: 1px solid #333; text-align: center;
         }
         .wa-input {
             width: 100%; padding: 14px; background: #000; border: 1px solid #444;
@@ -122,35 +114,43 @@
         <img src="OIP.jpg" class="banner-img" alt="Product">
 
         <h1>DRIP CLIENT <span>V3</span></h1>
-        <p class="desc">Mod menu premium untuk Android. Fitur bypass terbaru, update rutin Maret 2026, dan keamanan terjamin.</p>
+        <p style="color:#888; font-size:14px; margin-bottom:20px;">Premium Android Mod menu. Trusted by 1000+ users in Lyy Store.</p>
 
         <div class="tab-box">
-            <button class="tab-btn active" onclick="switchTab(event, 'aimbot', this)">Aimbot</button>
-            <button class="tab-btn" onclick="switchTab(event, 'visual', this)">Visual</button>
+            <button type="button" class="tab-btn active" onclick="switchTab(event, 'aimbot', this)">Fitur Utama</button>
+            <button type="button" class="tab-btn" onclick="switchTab(event, 'review', this)">Review Pembeli</button>
         </div>
 
         <div id="aimbot" class="feature-grid">
-            <div class="f-card"><i class="fas fa-crosshairs"></i><h4>Auto Headshot</h4></div>
-            <div class="f-card"><i class="fas fa-bullseye"></i><h4>Silent Aim</h4></div>
+            <div class="f-card"><i class="fas fa-crosshairs"></i><h4>Aimbot Pro</h4></div>
+            <div class="f-card"><i class="fas fa-eye"></i><h4>ESP Wallhack</h4></div>
+            <div class="f-card"><i class="fas fa-shield-alt"></i><h4>Anti Ban</h4></div>
+            <div class="f-card"><i class="fas fa-bolt"></i><h4>Fast Speed</h4></div>
         </div>
 
-        <div id="visual" class="feature-grid" style="display: none;">
-            <div class="f-card"><i class="fas fa-eye"></i><h4>ESP Name</h4></div>
-            <div class="f-card"><i class="fas fa-box"></i><h4>ESP Box</h4></div>
+        <div id="review" class="review-section" style="display: none;">
+            <div class="review-card">
+                <div class="rev-header">
+                    <span class="rev-user">Reza Gaming</span>
+                    <span class="rev-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <p class="rev-text">"Gila sih, aman banget dipake mabar. Admin Lyy Store juga fast respon!"</p>
+            </div>
+            <div class="review-card">
+                <div class="rev-header">
+                    <span class="rev-user">Budi_Cheat</span>
+                    <span class="rev-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                </div>
+                <p class="rev-text">"Langganan 30 hari gak pernah nyesel. Fitur aimbotnya natural banget."</p>
+            </div>
         </div>
 
         <div class="purchase-section">
-            <p style="font-size: 12px; color: #666; font-weight: bold;">PILIH DURASI PAKET</p>
+            <p style="font-size: 11px; color: #555; font-weight: bold;">PILIH PAKET</p>
             <div class="pkg-grid">
-                <div class="pkg-item" onclick="changePkg(this, 'Rp15.000', '1 Hari')">
-                    <strong>1 Hari</strong><br><small>Rp15.000</small>
-                </div>
-                <div class="pkg-item active" onclick="changePkg(this, 'Rp125.000', '15 Hari')">
-                    <strong>15 Hari</strong><br><small>Rp125.000</small>
-                </div>
-                <div class="pkg-item" onclick="changePkg(this, 'Rp265.000', '30 Hari')">
-                    <strong>30 Hari</strong><br><small>Rp265.000</small>
-                </div>
+                <div class="pkg-item" onclick="changePkg(this, 'Rp15.000', '1 Hari')"><strong>1 Hari</strong><br><small>Rp15.000</small></div>
+                <div class="pkg-item active" onclick="changePkg(this, 'Rp125.000', '15 Hari')"><strong>15 Hari</strong><br><small>Rp125.000</small></div>
+                <div class="pkg-item" onclick="changePkg(this, 'Rp265.000', '30 Hari')"><strong>30 Hari</strong><br><small>Rp265.000</small></div>
             </div>
 
             <div class="total-price" id="main-price">Rp125.000</div>
@@ -159,7 +159,7 @@
                 <i class="fas fa-shopping-cart"></i> Tambah Keranjang
             </button>
             <button type="button" class="btn-action btn-buy" onclick="openPayment(event)">
-                <i class="fas fa-qrcode"></i> Bayar Via QRIS
+                <i class="fas fa-qrcode"></i> Bayar QRIS Sekarang
             </button>
         </div>
     </div>
@@ -168,15 +168,15 @@
         <div class="modal-content">
             <h2 style="color: var(--primary);">Konfirmasi Order</h2>
             <div style="background: #1a1a1a; padding: 15px; border-radius: 15px; margin-top: 15px; font-size: 14px; text-align: left;">
-                <p>Item: <strong>Drip Client</strong></p>
-                <p>Durasi: <strong id="m-day" style="color:var(--primary)">15 Hari</strong></p>
+                <p>Produk: <strong>Drip Client</strong></p>
+                <p>Paket: <strong id="m-day" style="color:var(--primary)">15 Hari</strong></p>
                 <p>Harga: <strong id="m-price" style="color:var(--primary)">Rp125.000</strong></p>
             </div>
 
-            <input type="number" class="wa-input" id="waNum" placeholder="Masukkan No WhatsApp (08xxx)">
+            <input type="number" class="wa-input" id="waNum" placeholder="Masukkan No WhatsApp">
 
-            <button type="button" class="btn-action btn-buy" onclick="goWhatsApp(event)">Proses Pembayaran</button>
-            <button type="button" onclick="closePayment(event)" style="background:none; border:none; color:#666; margin-top: 15px; cursor: pointer;">Batalkan Pesanan</button>
+            <button type="button" class="btn-action btn-buy" onclick="goWhatsApp(event)">Proses Sekarang</button>
+            <button type="button" onclick="closePayment(event)" style="background:none; border:none; color:#666; margin-top: 15px; cursor: pointer;">Kembali</button>
         </div>
     </div>
 
@@ -184,29 +184,30 @@
         let currentPrice = "Rp125.000";
         let currentDay = "15 Hari";
 
-        // Ganti Tab Fitur
+        // Fungsi Ganti Tab (Fitur / Review)
         function switchTab(e, id, el) {
             if(e) e.preventDefault();
-            document.querySelectorAll('.feature-grid').forEach(g => g.style.display = 'none');
+            document.getElementById('aimbot').style.display = 'none';
+            document.getElementById('review').style.display = 'none';
+            
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).style.display = 'grid';
+            
+            document.getElementById(id).style.display = (id === 'aimbot') ? 'grid' : 'block';
             el.classList.add('active');
         }
 
-        // Ganti Paket Harga
+        // Fungsi Ganti Harga
         function changePkg(el, prc, day) {
             currentPrice = prc;
             currentDay = day;
             document.querySelectorAll('.pkg-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('main-price').innerText = prc;
-            
-            // Update data di modal juga
             document.getElementById('m-day').innerText = day;
             document.getElementById('m-price').innerText = prc;
         }
 
-        // Fungsi Modal
+        // Fungsi Modal (Sudah di-Fix supaya tidak loncat)
         function openPayment(e) {
             if(e) e.preventDefault();
             document.getElementById('paymentModal').style.display = 'flex';
@@ -221,17 +222,17 @@
 
         function saveCart(e) {
             if(e) e.preventDefault();
-            alert("Produk " + currentDay + " berhasil ditambah ke keranjang!");
+            alert("Berhasil masuk keranjang Lyy Store!");
         }
 
         function goWhatsApp(e) {
             if(e) e.preventDefault();
             const wa = document.getElementById('waNum').value;
             if(wa.length < 9) {
-                alert("Nomor WA tidak valid!");
+                alert("Nomor WA belum lengkap!");
                 return;
             }
-            alert("Menuju WhatsApp Admin Lyy Store...");
+            alert("Menghubungkan ke Admin Lyy Store...");
         }
     </script>
 </body>
