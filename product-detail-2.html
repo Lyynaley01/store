@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regedit Silver v5 - Lyy Store</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+
+        .btn-saldo-container {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass);
+            border-radius: 14px; padding: 15px; cursor: pointer; margin-bottom: 12px;
+        }
+
+        .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0; /* Memberi jarak atas dan bawah */
+}
+
+.separator-line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1); /* Garis tipis transparan */
+}
+
+.separator-text {
+    padding: 0 15px;
+    color: #4a4d52; /* Warna teks abu-abu gelap sesuai contoh */
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+        @media (max-width: 768px) {
+    /* Cari elemen yang membungkus kartu pembayaran di image_d3e6de.png */
+    .bagian-pembayaran {
+        position: relative !important; /* Jika sebelumnya menggunakan absolute */
+        width: 100% !important;
+        right: auto !important;
+        margin-top: 30px;
+    }
+
+    .bagian-kiri, .bagian-kanan {
+        width: 100%;
+    }
+
+
+    /* Agar harga Rp12... tidak terpotong */
+    .harga-display {
+        font-size: 1.5rem !important;
+        word-wrap: break-word;
+    }
+}
+
+        /* Container yang membungkus sisi deskripsi dan sisi pembayaran */
+.content-wrapper { 
+    display: flex;
+    flex-wrap: wrap; /* KUNCI: Agar elemen bisa turun ke bawah jika tidak muat */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px; /* Atau sesuaikan dengan desainmu */
+    margin: 0 auto;
+}
+
+/* Pastikan tiap kolom mengambil 100% lebar saat di layar kecil */
+.bagian-deskripsi, .bagian-pembayaran {
+    flex: 1 1 300px; /* Minimal lebar 300px sebelum dia turun ke bawah */
+    width: 100%;
+}
+
+        /* Container utama yang membungkus sisi kiri (deskripsi) dan sisi kanan (pembayaran) */
+.main-wrapper {
+    display: flex;
+    flex-direction: row; /* Berjejer ke samping di Laptop */
+    gap: 20px;
+    width: 100%;
+}
+
+/* --- KUNCI RESPONSIVE HP --- */
+@media (max-width: 768px) {
+    .main-wrapper {
+        flex-direction: column; /* Otomatis susun ke bawah di HP */
+    }
+
+    .bagian-kiri, .bagian-kanan-pembayaran {
+        width: 100%; /* Agar memenuhi lebar layar HP */
+    }
+}
+
+/* Layout Utama Produk */
+.product-container {
+    display: flex;
+    flex-direction: row; /* Default sampingan untuk Laptop */
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Media Query Khusus HP */
+@media (max-width: 768px) {
+    .product-container {
+        flex-direction: column; /* Mengubah susunan menjadi atas-bawah */
+    }
+
+    .product-image-section, .payment-section {
+        width: 100%; /* Memastikan tiap bagian memenuhi lebar layar HP */
+    }
+
+    .payment-section {
+        order: 2; /* Memastikan bagian pembayaran berada di urutan bawah */
+    }
+}
+
+        :root {
+            --bg-dark: #07080a;
+            --card-bg: #0d1117;
+            --accent-orange: #ea580c;
+            --border-glass: rgba(255, 255, 255, 0.05);
+            --modal-bg: #0f0f0f;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Layout Container */
+        .page-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .content-main { flex: 1; min-width: 0; }
+        
+        /* Sidebar Styling */
+        .sidebar-card { 
+            width: 380px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-glass); 
+            border-radius: 28px; 
+            padding: 30px; 
+
+            top: 30px; 
+        }
+
+        @media (max-width: 992px) {
+            .page-container { flex-direction: column; }
+            .sidebar-card { width: 100%; position: relative; top: 0; }
+        }
+
+        .price-text { font-size: 3.5rem; font-weight: 800; line-height: 1; margin-bottom: 5px; }
+        .price-sub { color: #4b5563; font-size: 13px; margin-bottom: 25px; }
+
+        /* Info Box Biru */
+        .info-box { 
+            background: rgba(37, 99, 235, 0.08); 
+            border: 1px solid rgba(37, 99, 235, 0.2); 
+            border-radius: 16px; 
+            padding: 15px; 
+            display: flex; 
+            gap: 12px; 
+            margin-bottom: 25px; 
+        }
+
+        /* Tombol Keranjang */
+        .btn-cart {
+            width: 100%;
+            padding: 16px;
+            background: #1f2937;
+            color: white;
+            border-radius: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cart:hover {
+            background: #2d3748;
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cart:active { transform: scale(0.98); }
+
+        /* Tombol Utama Orange */
+        .btn-orange-glow {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-orange);
+            color: white;
+            border-radius: 14px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(234, 88, 12, 0.1);
+        }
+
+        .btn-orange-glow:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: #f97316;
+            box-shadow: 0 15px 30px rgba(234, 88, 12, 0.4);
+        }
+
+        .btn-orange-glow:active { transform: translateY(-1px) scale(0.98); }
+
+        .btn-wa {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-wa:hover { 
+            background: rgba(255, 255, 255, 0.08); 
+            transform: translateY(-2px); 
+            color: #25d366; 
+        }
+
+        .review-item { display: flex; gap: 15px; padding: 20px 0; border-top: 1px solid var(--border-glass); }
+        .avatar { width: 44px; height: 44px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.9); display: none; 
+            justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(10px); 
+        }
+        .modal-content { 
+            background: var(--modal-bg); width: 90%; max-width: 440px; 
+            padding: 40px; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.05); 
+            animation: slideUp 0.3s ease-out; 
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .order-summary { background: #161616; border-radius: 20px; padding: 20px; margin-bottom: 25px; }
+        .input-wa { 
+            width: 100%; background: #1a1a1a; border: 1px solid #333; 
+            padding: 16px; border-radius: 14px; color: white; margin-top: 8px; outline: none; 
+        }
+        .input-wa:focus { border-color: var(--accent-orange); }
+    </style>
+</head>
+<body>
+
+
+    <div class="page-container">
+        <main class="content-main">
+            <div class="mb-6">
+                <img src="Gemini_Generated_Image_ic2emhic2emhic2e.png" alt="Regedit Silver" class="w-full rounded-3xl border border-white/5">
+            </div>
+
+            <div class="bg-[#0d1117] border border-white/5 rounded-[28px] p-8">
+                <span class="text-orange-500 font-bold tracking-widest text-xs uppercase mb-2 block">• AIMLOCK</span>
+                <h1 class="text-4xl font-black mb-4">Aimlock Master v1</h1>
+                <p class="text-gray-400 leading-relaxed mb-12">
+                    AIMLOCK MASTER V1 — Optimasi sistem tingkat lanjut untuk performa gaming maksimal. 
+                    Rasio HS: ±78% • Aim Lock: ±89% • No Delay • Safe & Anti Ban.
+                </p>
+
+                <div class="mt-12">
+                    <h3 class="text-xl font-bold mb-6 border-l-4 border-orange-500 pl-4">Review dari Buyer</h3>
+                    
+                    <div class="review-item">
+                        <div class="avatar">KY</div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold">ky***</span>
+                                <span class="text-green-400 text-[11px] font-semibold"><i class="fas fa-check-circle"></i> Verified</span>
+                            </div>
+                            <span class="text-[10px] text-gray-600">8/4/2026</span>
+                            <p class="mt-2 text-gray-300 italic text-sm">"Banyakin bang produk cheat lu, gacor banget ini, best dahh"</p>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="avatar" style="background: #ea580c;">KA</div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold">kar***</span>
+                                <span class="text-green-400 text-[11px] font-semibold"><i class="fas fa-check-circle"></i> Verified</span>
+                            </div>
+                            <span class="text-[10px] text-gray-600">7/4/2026</span>
+                            <p class="mt-2 text-gray-300 italic text-sm">"musuh sung afk jir pas lawan gua, ngeri aimlocknya."</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-10 opacity-40">
+                        <p class="text-gray-500 text-sm italic">Beli produk ini dulu untuk menulis review.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar-card">
+            <div class="price-text">Rp10.000</div>
+            <div class="price-sub">per file · lifetime access</div>
+            
+            <div class="h-[1px] bg-white/5 w-full mb-6"></div>
+
+            <div class="flex items-center gap-2 text-green-500 text-sm font-bold mb-6">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Stok Unlimited
+            </div>
+
+            <div class="info-box">
+                <i class="fas fa-folder-open text-blue-500 mt-1"></i>
+                <p class="text-[11px] text-blue-200 leading-relaxed">
+                    Produk file — setelah bayar, link download otomatis dikirim (manual via WA). Bisa didownload berkali-kali.
+                </p>
+            </div>
+
+            <button class="btn-cart" onclick="addToCart('Aimlock Master v1', 10000)">
+                <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+            </button>
+
+            <button class="btn-orange-glow" onclick="openModal()">
+                <a href="" class="btn-buy">Bayar Via QRIS</a>
+            </button>
+
+            <div class="separator">
+    <span class="separator-line"></span>
+    <span class="separator-text">ATAU</span>
+    <span class="separator-line"></span>
+</div>
+
+<!-- Tombol Bayar pake Saldo -->
+<!-- Baris 361: Tambahkan id untuk deteksi klik -->
+<div id="btn-pay-saldo" class="btn-saldo-container" style="cursor: pointer;">
+    <div class="flex justify-between items-center text-sm">
+        <div class="flex items-center gap-2 font-bold text-orange-500">
+            <span>💰</span> Bayar pake Saldo
+        </div>
+        <div class="text-gray-500 text-[10px]" id="saldoKurang">
+            <!-- Baris 367: Tambahkan id khusus untuk angka saldo -->
+            (<span id="display-saldo-angka" class="saldo-user-text">Saldo Rp0</span> - kurang Rp10.000)
+        </div>
+    </div>
+</div>
+
+            <a href="https://wa.me/62895328955017?text=Halo%20Admin%20Lyy%20Store,%20saya%20ingin%20beli%20Aimlock%20Master%20v1" 
+               target="_blank" class="btn-wa">
+                <i class="fab fa-whatsapp"></i> Tanya via WhatsApp
+            </a>
+
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <div class="text-[10px] text-gray-600 flex items-center gap-2"><i class="fas fa-shield-alt text-orange-500"></i> Aman & Legal</div>
+                <div class="text-[10px] text-gray-600 flex items-center gap-2"><i class="fas fa-bolt text-orange-500"></i> Fast Response</div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-1">Konfirmasi Pembayaran</h2>
+            <p class="text-gray-500 text-sm mb-8">Selesaikan pesanan Anda untuk mendapatkan akses produk.</p>
+
+            <div class="order-summary">
+                <div class="flex justify-between text-sm text-gray-400 mb-2">
+                    <span>Produk</span>
+                    <span class="text-white font-semibold">Aimlock Master v1</span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-white/5 mt-2">
+                    <span class="font-bold">Total Bayar</span>
+                    <span class="text-2xl font-black text-orange-500">Rp10.000</span>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <label class="text-[10px] font-black text-orange-500 uppercase tracking-widest">Nomor WhatsApp Anda</label>
+                <input type="tel" class="input-wa" placeholder="Contoh: 08123456789" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+
+            <button id="btn-konfirmasi-bayar" class="btn-orange-glow">
+                💳 Konfirmasi & Bayar
+            </button>
+            
+            <button class="w-full mt-4 text-gray-600 font-bold text-sm hover:text-gray-400 transition-colors" onclick="closeModal()">
+                Batal
+            </button>
+        </div>
+    </div>
+
+    <script>
+
+        // Mengambil user yang sedang login
+const user = firebase.auth().currentUser;
+
+if (user) {
+    const userEmail = user.email; // Ini UID berbasis email kamu
+    
+    // Simpan ke Firestore
+    db.collection("orders").add({
+        email: userEmail,
+        namaProduk: "Aimlock Master v1",
+        harga: "Rp10.000",
+        tanggal: firebase.firestore.FieldValue.serverTimestamp(),
+        status: "Berhasil"
+    })
+    .then(() => {
+        window.location.href = "riwayat.html";
+    });
+} else {
+    alert("Silakan login terlebih dahulu!");
+}
+
+// Contoh fungsi saat pembayaran berhasil/diklik
+function simpanKeRiwayat(produk, harga) {
+    const orderData = {
+        namaProduk: produk,
+        hargaProduk: harga,
+        tanggal: new Date().toLocaleDateString(),
+        status: "Berhasil", // Atau "Pending" jika menunggu konfirmasi QRIS
+        userId: "okJ2Fu2dcGaSxkgdVxiiu2o8Ykx2" // Sebaiknya gunakan ID unik dari Firebase Auth
+    };
+
+    // Simpan ke Firebase Firestore
+    db.collection("orders").add(orderData)
+    .then(() => {
+        window.location.href = "riwayat.html"; // Arahkan ke riwayat
+    });
+}
+
+        // FUNGSI BARU: Simpan Nama & Harga ke LocalStorage
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('lyyCart')) || [];
+            cart.push({ name: name, price: price });
+            localStorage.setItem('lyyCart', JSON.stringify(cart));
+            window.location.href = 'cart.html';
+        }
+
+        function openModal() {
+            document.getElementById('paymentModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+    <script>
+  function prosesBayar() {
+    const user = firebase.auth().currentUser;
+    
+    if (user) {
+      db.collection("orders").add({
+        email: user.email, // UID menggunakan email
+        namaProduk: "Aimlock Master v1",
+        harga: "Rp10.000",
+        tanggal: firebase.firestore.FieldValue.serverTimestamp(),
+        status: "Berhasil"
+      }).then(() => {
+        window.location.href = "riwayat.html";
+      });
+    } else {
+      alert("Kamu harus login dulu!");
+    }
+  }
+</script>
+
+<!-- Letakkan tepat sebelum </body> -->
+<script type="module">
+    // 1. IMPORT (Wajib di paling atas script)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc, collection, addDoc, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // 2. KONFIGURASI
+    const firebaseConfig = {
+        apiKey: "AIzaSyATMm7NhnDgOI3klh2EiV7xkb9GMIoUWHg",
+        authDomain: "lyynaleyxiters.firebaseapp.com",
+        projectId: "lyynaleyxiters",
+        appId: "1:85048055336:web:4a8b07e8ef32690e36871d",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const hargaProduk = 10000;
+
+    // 3. LOGIKA SINKRONISASI SALDO & PROFIL
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userRef = doc(db, "users", user.uid);
+            onSnapshot(userRef, (snap) => {
+                if (snap.exists()) {
+                    const data = snap.data();
+                    const saldoSekarang = data.saldo || data.Saldo || 0;
+                    
+                    // Update Teks Saldo & Tombol
+                    const saldoElem = document.getElementById("display-saldo-angka");
+                    if (saldoElem) {
+                        saldoElem.innerText = `Saldo Rp${saldoSekarang.toLocaleString('id-ID')}`;
+                    }
+                    
+                    // Logika "Saldo Cukup" vs "Kurang"
+                    const infoKurang = document.getElementById("saldoKurang");
+                    if (infoKurang) {
+                        if (saldoSekarang >= hargaProduk) {
+                            infoKurang.innerHTML = `<span style="color: #4ade80;">Saldo Cukup</span>`;
+                        } else {
+                            const kurang = hargaProduk - saldoSekarang;
+                            infoKurang.innerHTML = `(Kurang Rp${kurang.toLocaleString('id-ID')})`;
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    // 4. LOGIKA TOMBOL BAYAR
+    document.getElementById('btn-pay-saldo').addEventListener('click', async () => {
+    const user = auth.currentUser;
+    if (!user) return alert("Silakan login!");
+
+    try {
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
+        
+        // Ambil saldo dari database (Pastikan huruf besar/kecilnya 'saldo' atau 'Saldo' sesuai di Firebase)
+        const saldoSekarang = snap.data().saldo || snap.data().Saldo || 0; 
+
+        if (saldoSekarang < hargaProduk) {
+            alert("Saldo tidak cukup!");
+            return;
+        }
+
+        if (confirm("Konfirmasi pembelian Aimlock Master v1?")) {
+            // PROSES 1: Simpan ke Koleksi Orders
+            await addDoc(collection(db, "orders"), {
+                userId: user.uid,
+                namaProduk: "Aimlock Master v1",
+                harga: hargaProduk,
+                tanggal: serverTimestamp(),
+                status: "Success"
+            });
+
+            // PROSES 2: Potong Saldo
+            await updateDoc(userRef, {
+                saldo: saldoSekarang - hargaProduk
+            });
+
+            alert("✅ Pembayaran Berhasil!");
+            window.location.href = "product-aimlock.html"; // Pastikan file ini sudah ada
+        }
+    } catch (err) {
+        console.error("Gagal saat memproses klik:", err);
+        alert("Terjadi kesalahan: " + err.message);
+    }
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
