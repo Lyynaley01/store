@@ -71,7 +71,18 @@
         .btn-saldo-container { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); border-radius: 14px; padding: 15px; cursor: pointer; margin-bottom: 12px; transition: 0.2s; }
         .btn-saldo-container:hover:not(.opacity-50) { background: rgba(255, 255, 255, 0.05); border-color: var(--accent-orange); }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay {
+    position: fixed !important; /* Memaksa modal menempel di layar HP */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Memenuhi tinggi layar HP */
+    background: rgba(0, 0, 0, 0.85);
+    display: none; /* Default tertutup */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Angka tertinggi agar di atas logo serigala */
+}
         .modal-content { background: #0f0f0f; width: 90%; max-width: 440px; padding: 40px; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.1); transform: translateY(20px) scale(0.95); transition: transform 0.3s ease; }
         .modal-overlay.show { display: flex; opacity: 1; }
         .modal-overlay.show .modal-content { transform: translateY(0) scale(1); }
@@ -304,11 +315,11 @@ window.onload = sinkronkanSaldoProfil;
 
         // 5. KONTROL MODAL
         function openModal() {
-            const modal = document.getElementById('paymentModal');
-            modal.style.display = 'flex';
-            setTimeout(() => { modal.classList.add('show'); }, 10);
-            
-        }
+    const modal = document.getElementById('paymentModal');
+    modal.style.display = 'flex';
+    setTimeout(() => { modal.classList.add('show'); }, 10);
+    // HAPUS baris document.body.style.overflow = 'hidden';
+}
 
         function closeModal() {
             const modal = document.getElementById('paymentModal');
