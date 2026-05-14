@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyy Store - FLUORITE</title>
+    <style>
+
+        .btn-cart {
+            width: 100%;
+            padding: 16px;
+            background: #1f2937; /* Abu-abu gelap profesional */
+            color: white;
+            border-radius: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Tambahan agar teks link rapi */
+        }
+
+        /* Animasi Hover Tombol Keranjang */
+        .btn-cart:hover {
+            background: #2d3748; /* Sedikit lebih terang saat hover */
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animasi saat diklik */
+        .btn-cart:active {
+            transform: scale(0.98);
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn-cancel-custom {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .btn-cancel-custom:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        :root {
+            --primary: #ff8c00;
+            --bg-dark: #060300;
+            --card-bg: #0d0600;
+            --tab-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .back-home-top {
+            position: absolute; top: 30px; left: 30px;
+            display: inline-flex; align-items: center; gap: 8px;
+            color: #888; text-decoration: none; font-size: 14px; font-weight: 600;
+            padding: 10px 18px; border-radius: 12px; background: var(--tab-bg);
+            border: 1px solid rgba(250, 0, 0, 2); transition: 0.3s; z-index: 10;
+        }
+        .back-home-top:hover { color: var(--primary); transform: translateX(-5px); }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px;
+            padding: 20px; align-items: start;
+        }
+
+        .product-banner {
+            width: 100%; border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(255, 140, 0, 0.2); background: #000;
+        }
+        .product-banner img { width: 100%; display: block; }
+
+        .description-section { margin-top: 25px; }
+        .status-info { color: #ff9d00; font-size: 13px; font-weight: 700; margin-bottom: 10px; display: block; }
+        h1 { font-size: 28px; margin-bottom: 10px; text-transform: uppercase; }
+        h1 span { color: var(--primary); }
+        .sub-desc { color: #888; font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
+
+        .tab-container {
+            display: flex; gap: 10px; background: var(--tab-bg);
+            padding: 5px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1; padding: 12px; border: none; background: none; color: #666;
+            font-weight: 600; cursor: pointer; border-radius: 10px; transition: 0.3s;
+            font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .tab-btn.active { background: rgba(255, 140, 0, 0.1); color: var(--primary); }
+
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .feature-card {
+            background: var(--card-bg); padding: 20px; border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .feature-card .icon { 
+            width: 35px; height: 35px; background: rgba(255,140,0,0.1); 
+            border-radius: 10px; display: flex; align-items: center; 
+            justify-content: center; color: var(--primary); margin-bottom: 15px;
+        }
+        .feature-card h3 { font-size: 16px; margin-bottom: 8px; }
+        .feature-card p { font-size: 12px; color: #666; line-height: 1.5; }
+
+        .purchase-card {
+            background: var(--card-bg); padding: 30px; border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .price-label { color: #666; font-size: 11px; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .duration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .duration-item {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            padding: 15px; border-radius: 14px; cursor: pointer; transition: 0.3s;
+        }
+        .duration-item.active { background: rgba(255, 140, 0, 0.1); border-color: var(--primary); }
+        .duration-item p { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .duration-item span { font-size: 12px; color: var(--primary); font-weight: 600; }
+
+        .price-big { font-size: 36px; font-weight: 800; margin-bottom: 5px; }
+        .price-big span { font-size: 18px; color: var(--primary); }
+
+        .action-btn {
+            width: 100%; padding: 16px; border-radius: 14px; border: none; font-weight: 700;
+            cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-qris { background: var(--primary); color: black; }
+        .btn-qris:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2); }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(10px);
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #0d0b09; 
+            width: 90%; 
+            max-width: 420px; 
+            padding: 30px;
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            transform: scale(0.85);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header { margin-bottom: 20px; }
+        .modal-header h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .modal-header p { font-size: 14px; color: #888; }
+        .order-summary { background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .summary-total { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 15px; padding-top: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 12px; color: var(--primary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+        .input-group input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 12px; color: white; outline: none; }
+        .info-box { background: rgba(255, 140, 0, 0.05); padding: 12px; border-radius: 12px; font-size: 12px; color: #ccc; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-home-top">
+        <span>🏡</span> Kembali ke Home
+    </a>
+
+    <div class="container">
+        <div class="left-col">
+            <div class="product-banner">
+                <img src="Gemini_Generated_Image_pz48bzpz48bzpz48.png" alt="FLUORITE">
+            </div>
+
+            <div class="description-section">
+                <span class="status-info">IOS PAINEL ·</span>
+                <h1>FLUORITE <span>PAINEL</span></h1>
+                <p class="sub-desc">INFORMATION! USER FLUORITE WAJIB MENGGUNAKAN G-BOX UBTUK PEMASANGAN NYA, Panel gaming premium dengan fitur terlengkap. Anti-ban, update rutin, dan support 24/7. Work di semua IOS.</p>
+                
+                <div class="tab-container">
+                    <button class="tab-btn active" onclick="switchTab('aimbot')">🎯 Aimbot</button>
+                    <button class="tab-btn" onclick="switchTab('visual')">👁️ Visual ESP</button>
+                    <button class="tab-btn" onclick="switchTab('others')">⚡ Lainnya</button>
+                </div>
+
+                <div id="aimbot" class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">🎯</div>
+                        <h3>FOV</h3>
+                        <p>Jauh nya layar.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🌑</div>
+                        <h3>Silent/Vectored Aimbot</h3>
+                        <p>Aim tidak terlihat tanpa menggerakkan crosshair.</p>
+                    </div>
+                </div>
+
+                <div id="visual" class="feature-grid" style="display: none;">
+                    <div class="feature-card">
+                        <div class="icon">📦</div>
+                        <h3>ESP Box</h3>
+                        <p>Mengetahui posisi musuh dengan kotak visual presisi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🦴</div>
+                        <h3>ESP Skeleton</h3>
+                        <p>Menampilkan kerangka tubuh musuh menembus dinding.</p>
+                    </div>
+                </div>
+
+                <div id="others" class="feature-grid" style="display: none;">
+                    <div class="feature-card">
+                        <div class="icon">🚀</div>
+                        <h3>No Recoil</h3>
+                        <p>Tembakan lurus sempurna tanpa getaran senjata.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🛡️</div>
+                        <h3>Anti-Ban</h3>
+                        <p>Sistem keamanan cloud bypass terbaru 2026.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="purchase-card">
+                <p class="price-label">Pilih Paket Durasi</p>
+                <div class="duration-grid">
+                    <div class="duration-item" onclick="selectDuration(this, '50.000', '1 Hari')">
+                        <p>1 Hari</p><span>Rp50.000</span>
+                    </div>
+                    <div class="duration-item" onclick="selectDuration(this, '150.000', '7 Hari')">
+                        <p>7 Hari</p><span>Rp150.000</span>
+                    </div>
+                    <div class="duration-item" onclick="selectDuration(this, '350.000', '30 Hari')">
+                        <p>30 Hari</p><span>Rp350.000</span>
+                    </div>
+                </div>
+
+                <p class="price-label">Total Pembayaran</p>
+                <div class="price-big" id="main-price">Rp150.<span>000</span></div>
+                <p id="sub-text" style="color: #555; font-size: 12px; margin-bottom: 25px;">LyynaleyXiters - 15 Hari</p>
+
+                <a href="#" class="btn-cart" onclick="addToCart(event)">
+                    <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                </a>
+
+                <button class="action-btn btn-qris" onclick="openModal()">💳 Bayar via QRIS</button>
+                <button class="action-btn" id="wa-admin-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">💬 Tanya via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Konfirmasi Pembayaran</h2>
+                <p>Selesaikan pesanan Anda untuk mendapatkan akses.</p>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-item">
+                    <span style="color: #888;">Produk</span>
+                    <span style="font-weight: 600;">FLUORTE</span>
+                </div>
+                <div class="summary-item">
+                    <span style="color: #888;">Durasi</span>
+                    <span id="confirm-duration" style="font-weight: 600;">7 Hari</span>
+                </div>
+                <div class="summary-total">
+                    <span style="font-weight: 700;">Total Bayar</span>
+                    <span id="confirm-total" style="font-size: 20px; font-weight: 800; color: var(--primary);">Rp125.000</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Nomor WhatsApp</label>
+                <input type="tel" id="waNumber" placeholder="Contoh: 08123456789" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+
+            <div class="info-box">
+                <span>🔒</span>
+                <p>Pembayaran aman. Key akan dikirimkan otomatis ke nomor wa anda setelah pembayaran sukses.</p>
+            </div>
+
+            <button class="action-btn btn-qris" onclick="processPayment()">
+                💳 Konfirmasi & Bayar
+            </button>
+
+            <button class="btn-cancel-custom" onclick="closeModal()">
+                Batal
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentPrice = "Rp150.000";
+        let currentDay = "7 Hari";
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.feature-grid').forEach(grid => grid.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'grid';
+            event.currentTarget.classList.add('active');
+        }
+
+        function selectDuration(element, price, day) {
+            document.querySelectorAll('.duration-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            
+            currentPrice = `Rp${price}`;
+            currentDay = day;
+
+            const priceParts = price.split('.'); 
+            document.getElementById('main-price').innerHTML = `Rp${priceParts[0]}.<span>${priceParts[1]}</span>`;
+            document.getElementById('sub-text').innerText = `LyynaleyXiters - ${day}`;
+        }
+
+        /* LOGIKA KERANJANG DINAMIS */
+        function addToCart(event) {
+            event.preventDefault();
+            
+            // Mengambil angka saja dari harga (contoh: Rp15.000 jadi 15000)
+            const numericPrice = parseInt(currentPrice.replace(/[^0-9]/g, ''));
+            const productName = "FLUORITE - " + currentDay;
+
+            let cart = JSON.parse(localStorage.getItem('lyyCart')) || [];
+            cart.push({
+                name: productName,
+                price: numericPrice
+            });
+
+            localStorage.setItem('lyyCart', JSON.stringify(cart));
+            window.location.href = 'cart.html';
+        }
+
+        function openModal() {
+            const modal = document.getElementById('paymentModal');
+            document.getElementById('confirm-duration').innerText = currentDay;
+            document.getElementById('confirm-total').innerText = currentPrice;
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('show');
+        }
+
+        function processPayment() {
+            const wa = document.getElementById('waNumber').value;
+            if(!wa) {
+                alert("Harap masukkan nomor WhatsApp untuk menerima key!");
+                return;
+            }
+            alert("Mengalihkan ke gerbang pembayaran QRIS...");
+        }
+
+        document.getElementById('wa-admin-btn').addEventListener('click', () => {
+            const msg = `Halo Admin Lyy Store, saya ingin tanya paket ${currentDay} (${currentPrice}) untuk FLUORITE.`;
+            window.open(`https://wa.me/628123456789?text=${encodeURIComponent(msg)}`, '_blank');
+        });
+
+        // Tutup modal jika klik di luar area modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

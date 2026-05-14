@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang -- Lyy Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+
+/* Container untuk foto profil di Navbar */
+.profile-nav-wrapper {
+    width: 36px;  /* Ukuran sedikit lebih besar agar terlihat jelas */
+    height: 36px;
+    border-radius: 50%; /* Membuat container bulat */
+    background: #000000;  /* Latar belakang hitam untuk kontras bingkai */
+    padding: 3px;      /* Jarak antara bingkai oranye dan foto */
+    border: 3px solid #ff9d00; /* Bingkai oranye tebal seperti contoh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;   /* Memastikan foto tidak keluar dari lingkaran */
+}
+
+/* Gaya untuk elemen fotonya itu sendiri */
+.profile-nav-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Memastikan foto terpotong rapi (tidak gepeng) */
+    border-radius: 50%; /* Membuat fotonya ikut bulat */
+}
+
+        body { background-color: #0a0807; color: white; font-family: 'Inter', sans-serif; }
+        .card-custom { background: #17120d; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 24px; }
+        
+        /* Gaya Tampilan Keranjang Kosong */
+        .empty-cart-card {
+            background: #17130d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .empty-cart-card img {
+            width: 100px;
+            margin: 0 auto 20px;
+            opacity: 0.8;
+        }
+        .empty-cart-card h3 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; }
+        .empty-cart-card p { color: #9e958b; font-size: 14px; margin-bottom: 30px; }
+        
+        .btn-shop-now {
+            background: #f7862f;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .btn-shop-now:hover { background: #f89844; transform: translateY(-2px); }
+
+        /* Style Tambahan untuk List Item agar Serasi */
+        .cart-item-ui {
+            background: #17120d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="flex items-center justify-between px-8 py-6 border-b border-white/5 bg-[#07080a]">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold italic">L</div>
+            <span class="font-black tracking-tighter text-xl uppercase">Lyynaley <span class="text-orange-500">Xiters</span></span>
+        </div>
+        <div class="flex items-center gap-4">
+    <div class="bg-[#0d1117] px-4 py-2 rounded-xl border border-white/5">
+        <span class="text-xs font-bold text-orange-400">Rp0</span>
+    </div>
+    
+    <div class="profile-nav-wrapper">
+        <img src="anime.webp" alt="Profile" class="profile-nav-img">
+    </div>
+</div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-12 px-6">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            🛒 Keranjang <span id="cart-count-badge" class="bg-orange-600 text-xs px-2 py-1 rounded-full">0</span>
+        </h2>
+        
+        <div id="cart-content"></div>
+
+        <div class="mt-8 text-center">
+            <a href="index.html" class="text-orange-500 font-medium hover:underline">← Lanjut Belanja</a>
+        </div>
+    </main>
+
+    <script>
+        function renderCart() {
+            const cartContent = document.getElementById('cart-content');
+            const badge = document.getElementById('cart-count-badge');
+            
+            // Ambil data terbaru dari localStorage
+            let cart = JSON.parse(localStorage.getItem('lyyCart')) || [];
+            
+            // Update angka badge
+            if(badge) badge.innerText = cart.length;
+
+            // KONDISI 1: JIKA KERANJANG KOSONG
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png" alt="Empty Cart">
+                        <h3>Keranjang Kosong</h3>
+                        <p>Belum ada produk di keranjang kamu.</p>
+                        <a href="index.html" class="btn-shop-now">
+                            <i class="fas fa-shopping-bag"></i> Belanja Sekarang
+                        </a>
+                    </div>
+                `;
+            } 
+            // KONDISI 2: JIKA ADA ISI
+            else {
+                let total = 0;
+                let itemsHtml = '<div class="space-y-4">';
+
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    itemsHtml += `
+                        <div class="cart-item-ui">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
+                                    <i class="fas fa-box text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">${item.name}</h4>
+                                    <p class="text-xs text-gray-500">Produk Digital</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-6">
+                                <span class="font-bold text-lg">Rp${item.price.toLocaleString('id-ID')}</span>
+                                <button onclick="removeItem(${index})" class="text-gray-500 hover:text-red-500 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                itemsHtml += '</div>';
+
+                // Gabungkan List Item dengan Total Bayar agar muncul dalam satu layar
+                cartContent.innerHTML = `
+                    ${itemsHtml}
+                    <div class="card-custom mt-6">
+                        <div class="flex justify-between items-center pt-2 mb-8">
+                            <span class="text-gray-400 font-medium">Total Bayar</span>
+                            <span class="text-4xl font-black tracking-tighter">Rp${total.toLocaleString('id-ID')}</span>
+                        </div>
+                        <button class="w-full bg-orange-900/40 border border-orange-500/30 text-orange-400 py-5 rounded-2xl font-black text-lg">
+                            Saldo kurang (Rp0)
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Fungsi hapus item
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('lyyCart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('lyyCart', JSON.stringify(cart));
+            renderCart(); // Langsung update tampilan tanpa refresh
+        }
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+</html>

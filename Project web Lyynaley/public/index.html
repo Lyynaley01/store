@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyynaley Xiters | Premium Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* Styling Lingkaran Avatar di Navbar */
+.nav-avatar {
+    width: 35px; /* Sesuaikan ukuran kecil untuk navbar */
+    height: 35px;
+    border: 1.5px solid orange; /* Border orange khas Lyy Store */
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.4); /* Efek glow orange */
+    background-color: #111215;
+}
+
+/* Agar gambar di navbar tidak gepeng */
+.nav-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Opsional: Efek saat kursor diarahkan ke profil navbar */
+.user-nav:hover .nav-avatar {
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+    border-color: #fff;
+    transition: 0.3s;
+}
+
+        .avatar {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #ff9800; /* Border orange */
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* Penting: agar gambar tidak keluar dari lingkaran */
+    
+    /* Efek Glow pada Lingkaran */
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #18191d;
+}
+
+/* Styling untuk gambar di dalam avatar */
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Agar gambar tidak gepeng/distorsi */
+    border-radius: 50%;
+}
+
+        .main-footer {
+    background-color: #0a0b0d;
+    padding: 60px 0 0;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 152, 0, 0.1);
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding: 0 20px 40px;
+}
+
+.footer-logo {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.footer-logo span {
+    color: orange;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+.footer-brand p {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-socials a {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    background: orange;
+    color: #000;
+}
+
+.footer-links h4 {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.footer-links ul li a:hover {
+    color: orange;
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    background: #08090b;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.container-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+    font-size: 12px;
+}
+
+.bottom-legal a {
+    color: #555;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container { grid-template-columns: 1fr 1fr; }
+    .container-bottom { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+        /* Styling FAQ */
+.faq-section {
+    padding: 40px 20px;
+    background: transparent;
+}
+
+.container-faq {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Jarak antar kotak pertanyaan */
+}
+
+details {
+    background-color: #111215; /* Sama dengan profile card */
+    border: 1px solid rgba(255, 152, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+details[open] {
+    border-color: rgba(255, 152, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.05);
+}
+
+summary {
+    padding: 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none; /* Hilangkan panah default browser */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+summary::-webkit-details-marker {
+    display: none; /* Hilangkan panah default di Safari */
+}
+
+.faq-icon {
+    font-size: 10px;
+    color: #555;
+    transition: transform 0.3s ease;
+}
+
+details[open] .faq-icon {
+    transform: rotate(180deg);
+    color: orange;
+}
+
+.faq-content {
+    padding: 0 20px 20px 20px;
+    color: #888;
+    font-size: 13px;
+    line-height: 1.6;
+    border-top: 1px solid rgba(255, 152, 0, 0.05);
+    padding-top: 15px;
+}
+
+        .widget-header h3 {
+    font-size: 18px; 
+    color: #fff;
+    padding-left: 15px; /* Memberi ruang untuk garis yang baru */
+    margin-bottom: 25px;
+    position: relative; /* Penting agar posisi garis bisa diatur */
+    display: flex;
+    align-items: center;
+}
+
+/* Membuat garis vertikal membulat */
+.widget-header h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 4px; /* Tebal garis */
+    height: 80%; /* Tinggi garis mengikuti teks */
+    background-color: orange; /* Warna orange khas Lyy Store */
+    
+    /* MEMBUAT UJUNG MEMBULAT */
+    border-radius: 10px; 
+    
+    /* Efek Glow agar serasi dengan branding */
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
+}
+
+/* Styling Cara Order */
+.how-to-order {
+    padding: 60px 20px;
+    background: transparent;
+}
+
+.container-order {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.step-card {
+    background-color: #111215;
+    border: 1px solid rgba(255, 152, 0, 0.1);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.03);
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255, 152, 0, 0.4);
+    box-shadow: 0 0 25px rgba(255, 152, 0, 0.1);
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    background: orange;
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 auto 15px;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.step-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.step-card h4 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.step-card p {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 576px) {
+    .steps-grid { grid-template-columns: 1fr; }
+}
+
+        /* --- STYLE DASAR --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #060300;
+            background-image:
+                radial-gradient(circle at top, rgba(255, 140, 0, 0.15), transparent 40%),
+                linear-gradient(rgba(255, 140, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 140, 0, 0.05) 1px, transparent 1px);
+            background-size: cover, 50px 50px, 50px 50px;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .container-navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 11px 5%; position: fixed; width: 100%; top: 0;
+            z-index: 1000; background-color: rgba(6, 3, 0, 0.8); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+        }
+        .logo-navbar { font-size: 22px; font-weight: bold; color: white; text-transform: uppercase; }
+        .logo-navbar span { color: orange; }
+        .ul-navbar { display: flex; list-style: none; gap: 15px; }
+        .a-navbar { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 13px; font-weight: 600; transition: 0.3s; }
+        .a-navbar:hover { color: orange; }
+
+        /* --- HERO SECTION --- */
+        .hero-text { margin-top: 130px; text-align: center; padding: 0 20px; }
+        .premium-label {
+            display: inline-block; background: rgba(255, 140, 0, 0.1);
+            border: 1px solid rgba(255, 140, 0, 0.3);
+            padding: 5px 20px; border-radius: 50px; color: orange;
+            letter-spacing: 3px; font-weight: 600; font-size: 11px; margin-bottom: 15px;
+        }
+        .title-text { font-size: clamp(40px, 8vw, 70px); font-weight: 800; line-height: 1; text-transform: uppercase; }
+        .title-text span { color: orange; text-shadow: 0 0 20px rgba(255, 165, 0, 0.5); }
+        .hero-desc { color: #aaa; max-width: 600px; margin: 20px auto; font-size: 14px; }
+
+        /* --- SLIDER --- */
+        .slider-container { 
+            width: 90%; max-width: 1000px; aspect-ratio: 21 / 9;
+            position: relative; margin: 40px auto; border-radius: 20px; 
+            border: 1px solid rgba(255, 140, 0, 0.2); overflow: hidden; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .slide { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 0;
+        }
+        .slide.active { opacity: 1; z-index: 1; }
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+            background: rgba(0, 0, 0, 0.5); color: white; border: none;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+        }
+        .prev-btn { left: 20px; } .next-btn { right: 20px; }
+
+        /* --- LAYOUT MENU --- */
+        .menu-grid-horizontal {
+            display: flex; gap: 15px; width: 90%; max-width: 1000px;
+            margin: 20px auto; flex-wrap: wrap;
+        }
+        .menu-card-small {
+            flex: 1; min-width: 250px; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 15px;
+            padding: 20px; display: flex; align-items: center; cursor: pointer;
+            transition: 0.3s; position: relative;
+        }
+        .menu-card-small:hover { background: rgba(255, 255, 255, 0.07); transform: translateY(-5px); }
+        .icon-box {
+            width: 45px; height: 45px; background: rgba(255, 140, 0, 0.15);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; color: orange; font-size: 18px; box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+        }
+        .menu-info .label { font-size: 9px; color: #777; font-weight: 800; letter-spacing: 1px; }
+        .menu-info .title { font-size: 16px; font-weight: 700; color: white; }
+        .arrow-icon { position: absolute; right: 20px; color: #333; font-size: 12px; }
+
+        /* --- SEARCH BOX --- */
+        .search-wrapper { width: 90%; max-width: 1000px; margin: 30px auto; }
+        .search-box {
+            display: flex; align-items: center; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 140, 0, 0.2); border-radius: 50px; padding: 5px 5px 5px 20px;
+        }
+        .search-box input {
+            flex: 1; background: transparent; border: none; color: white; outline: none; padding: 10px;
+        }
+        .search-btn {
+            background: orange; border: none; padding: 10px 25px; border-radius: 50px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+
+        /* --- PRODUCT GRID --- */
+        #shop-section { width: 90%; max-width: 1000px; margin: 50px auto; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .product-card { background: #0d0d0d; border-radius: 20px; border: 1px solid #222; overflow: hidden; transition: 0.3s; }
+        .product-card:hover { border-color: orange; }
+        .product-img-wrapper img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .buy-btn { 
+            width: 100%; background: transparent; border: 1px solid orange; color: orange;
+            padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .buy-btn:hover { background: orange; color: black; }
+
+        /* --- USER MENU --- */
+        #user-menu {
+            position: fixed; top: 70px; right: 5%; background: #111; border: 1px solid orange;
+            border-radius: 15px; padding: 20px; width: 250px; display: none; z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid-horizontal { flex-direction: column; }
+            .ul-navbar { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="container-navbar">
+        <h1 class="logo-navbar">Lyynaley<span>Xiters</span></h1>
+        <ul class="ul-navbar">
+            <li><a href="#" class="a-navbar">HOME</a></li>
+            <li><a href="#" class="a-navbar">TESTI</a></li>
+            <li><a href="#shop-section" class="a-navbar">SHOP</a></li>
+            <li><a href="#faq" class="a-navbar">FAQ</a></li>
+        </ul>
+        
+        <div id="authArea">
+            <!-- Loader atau Link akan muncul di sini -->
+        </div>
+    </nav>
+
+    <div id="user-menu"></div>
+
+    <header class="hero-text">
+        <p class="premium-label">PREMIUM CHEAT STORE</p>
+        <h1 class="title-text">Lyynaley <br><span>Xiters</span></h1>
+        <p class="hero-desc">Tools, panel & file digital premium terpercaya. Update rutin & support 24/7.</p>
+    </header>
+
+    <div class="slider-container">
+        <button class="slider-btn prev-btn" onclick="window.changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-btn next-btn" onclick="window.changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        <img src="Gemini_Generated_Image_aw3ltcaw3ltcaw3l.png" class="slide active">
+        <img src="Gemini_Generated_Image_uv96fduv96fduv96.png" class="slide">
+        <img src="Gemini_Generated_Image_pflcd3pflcd3pflc.png" class="slide">
+    </div>
+
+    <div class="search-wrapper">
+        <div class="search-box">
+            <i class="fas fa-search" style="color:orange"></i>
+            <input type="text" id="searchInput" placeholder="Cari produk impianmu..." onkeyup="checkEnter(event)">
+            <button class="search-btn" onclick="searchProduct()">Cari</button>
+        </div>
+    </div>
+
+    <div class="menu-grid-horizontal">
+        <div class="menu-card-small" onclick="window.location.href='topup.html'">
+            <div class="icon-box"><i class="fas fa-credit-card"></i></div>
+            <div class="menu-info">
+                <div class="label">ISI SALDO</div>
+                <div class="title">Topup</div>
+            </div>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+
+        <div class="menu-card-small" onclick="window.location.href='#shop-section'">
+            <div class="icon-box"><i class="fas fa-shopping-bag"></i></div>
+            <div class="menu-info">
+                <div class="label">SEMUA PRODUK</div>
+                <div class="title">Toko</div>
+            </div>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+
+        <div class="menu-card-small" onclick="window.location.href='cart.html'">
+            <div class="icon-box"><i class="fas fa-shopping-cart"></i></div>
+            <div class="menu-info">
+                <div class="label">BELANJAAN KAMU</div>
+                <div class="title">Keranjang</div>
+            </div>
+            <i class="fas fa-arrow-right arrow-icon"></i>
+        </div>
+    </div>
+
+    <section id="shop-section">
+        <h2 style="margin-bottom: 20px;">🔑 Produk All Cheat</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Produk Statis -->
+            <div class="product-card" id="drip-client">
+                <div class="product-img-wrapper"><img src="Gemini_Generated_Image_p1yhgkp1yhgkp1yh.png" alt="Drip Client"></div>
+                <div class="product-info">
+                    <p style="color: orange; font-size: 10px; font-weight: bold;">ANDROID • MODMENU</p>
+                    <h3 style="margin: 5px 0;">DRIP CLIENT</h3>
+                    <p style="font-weight: bold; margin-bottom: 15px;">RP 15.000</p>
+                    <button class="buy-btn" onclick="window.location.href='product-detail.html'">Beli Sekarang</button>
+                </div>
+            </div>
+       <!-- Tambahkan ini di bawah Drip Client -->
+<div class="product-card" id="aimlock-master">
+    <div class="product-img-wrapper">
+        <img src="Gemini_Generated_Image_b9jcl5b9jcl5b9jc.png" alt="Aimlock Master">
+    </div>
+    <div class="product-info">
+        <p style="color: orange; font-size: 10px; font-weight: bold;">ANDROID • FILE</p>
+        <h3 style="margin: 5px 0;">AIMLOCK MASTER</h3>
+        <p style="font-weight: bold; margin-bottom: 15px;">RP 10.000</p>
+        <button class="buy-btn" onclick="window.location.href='product-detail-2.html'">Beli Sekarang</button>
+    </div>
+</div>
+
+<div class="product-card" id="aimlock-master">
+    <div class="product-img-wrapper">
+        <img src="Gemini_Generated_Image_pz48bzpz48bzpz48.png" alt="Aimlock Master">
+    </div>
+    <div class="product-info">
+        <p style="color: orange; font-size: 10px; font-weight: bold;">IOS • MODMENU</p>
+        <h3 style="margin: 5px 0;">FLUORITE</h3>
+        <p style="font-weight: bold; margin-bottom: 15px;">RP 50.000</p>
+        <button class="buy-btn" onclick="window.location.href='product-detail-3.html'">Beli Sekarang</button>
+    </div>
+</div>
+
+    </section>
+
+    <!-- Section Cara Order -->
+<section id="cara-order" class="how-to-order">
+    <div class="container-order">
+        <div class="widget-header">
+            <h3>Cara Order</h3>
+           </div>
+        <div class="steps-grid">
+            <!-- Langkah 1 -->
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">🛍️</div>
+                <h4>Pilih Produk</h4>
+                <p>Search di kolom pencarian produk yang lo mau. Klik "Beli Sekarang" di card produk.</p>
+            </div>
+
+            <!-- Langkah 2 -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">📋</div>
+                <h4>Cek Detail</h4>
+                <p>Di halaman produk, lihat deskripsi, fitur, harga & durasi. Pilih jumlah.</p>
+            </div>
+
+            <!-- Langkah 3 -->
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">💳</div>
+                <h4>Bayar via QRIS</h4>
+                <p>Klik beli, scan QRIS dari app e-wallet manapun. Cepat & aman.</p>
+            </div>
+
+            <!-- Langkah 4 -->
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">⚡</div>
+                <h4>Terima Produk</h4>
+                <p>Setelah bayar, produk / panel / file langsung dikirim otomatis. Gas Buy!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Tanya Jawab -->
+<section id="faq" class="faq-section">
+    <div class="container-faq">
+        <div class="widget-header">
+            <h3>Tanya Jawab</h3>
+        </div>
+
+        <div class="faq-list">
+            <details>
+                <summary>Bisa dipakai tanpa root? <span class="faq-icon">▼</span></summary>
+                <div class="faq-content">
+                    <p>Ya, semua produk kami dirancang agar bisa berjalan lancar baik di device root maupun non-root.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Aman tidak? Bisa kena ban? <span class="faq-icon">▼</span></summary>
+                <div class="faq-content">
+                    <p>Produk kami selalu di-update secara berkala untuk memastikan keamanan maksimal. Namun, tetap disarankan mengikuti panduan penggunaan.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Cara install gimana? <span class="faq-icon">▼</span></summary>
+                <div class="faq-content">
+                    <p>Tutorial lengkap akan dikirimkan secara otomatis setelah pembayaran sukses bersamaan dengan link download.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Ada refund tidak? <span class="faq-icon">▼</span></summary>
+                <div class="faq-content">
+                    <p>Refund hanya berlaku jika produk sama sekali tidak bisa berjalan di device kamu setelah dibantu oleh tim support kami yang on 24/7.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+    <script>
+        // SLIDER LOGIC
+        let index = 0;
+        const slides = document.querySelectorAll(".slide");
+        function showSlide(n) {
+            if(slides.length === 0) return;
+            slides.forEach(s => s.classList.remove("active"));
+            index = (n + slides.length) % slides.length;
+            slides[index].classList.add("active");
+        }
+        window.changeSlide = (step) => showSlide(index + step);
+        setInterval(() => showSlide(index + 1), 5000);
+
+        // SEARCH LOGIC
+        // SEARCH LOGIC YANG SUDAH DIPERBAIKI
+function searchProduct() {
+    // Ambil input dan bersihkan spasi
+    const input = document.getElementById('searchInput').value.toLowerCase().trim();
+    let targetId = "";
+
+    // Logika penentuan ID
+    if (input.includes("drip")) {
+        targetId = "drip-client";
+    } else if (input.includes("aimlock")) {
+        targetId = "aimlock-master";
+    }
+
+    // Eksekusi Scroll
+    if (targetId) {
+        const el = document.getElementById(targetId);
+        if (el) {
+            // Proses scroll
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Beri efek kilat orange agar terlihat
+            el.style.border = "2px solid orange";
+            el.style.boxShadow = "0 0 30px orange";
+            
+            // Hapus efek setelah 2 detik
+            setTimeout(() => {
+                el.style.border = "1px solid #222";
+                el.style.boxShadow = "none";
+            }, 2000);
+        } else {
+            console.error("Elemen dengan ID " + targetId + " tidak ditemukan di HTML!");
+        }
+    } else {
+        alert("Produk tidak ditemukan! Coba ketik 'Drip' atau 'Aimlock'.");
+    }
+}
+
+// Supaya bisa di-enter
+function checkEnter(e) {
+    if (e.key === "Enter") {
+        searchProduct();
+    }
+}
+    </script>
+
+    <script type="module">
+    // 1. Import library Firebase yang dibutuhkan
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // 2. Konfigurasi Firebase Lyynaley Xiters
+    const firebaseConfig = {
+        apiKey: "AIzaSyATMm7NhnDgOI3klh2EiV7xkb9GMIoUWHg",
+        authDomain: "lyynaleyxiters.firebaseapp.com",
+        projectId: "lyynaleyxiters",
+        appId: "1:85048055336:web:4a8b07e8ef32690e36871d",
+    };
+
+    // 3. Inisialisasi Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // 4. Ambil elemen HTML untuk area User
+    const authArea = document.getElementById("authArea");
+    const userMenu = document.getElementById("user-menu");
+
+    // 5. Pantau status Login dan ambil data secara Real-time
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const userRef = doc(db, "users", user.uid);
+        
+        onSnapshot(userRef, (snap) => {
+            if (snap.exists()) {
+                const data = snap.data();
+                
+                const currentUsername = data.username || data.Username || "User Baru"; 
+                const currentEmail = user.email; 
+                const saldo = data.saldo || data.Saldo || 0;
+
+                // --- TAMBAHKAN LOGIKA FOTO DI SINI ---
+                // Jika ada photoURL di database pakai itu, jika tidak ada pakai anime.webp (atau logo.jpg)
+                const fotoProfil = data.photoURL || 'anime.webp'; 
+
+                const formattedSaldo = new Intl.NumberFormat('id-ID', { 
+                    style: 'currency', 
+                    currency: 'IDR', 
+                    minimumFractionDigits: 0 
+                }).format(saldo);
+
+                // --- UPDATE TAMPILAN NAVBAR (DENGAN FOTO SINKRON) ---
+                authArea.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="background: rgba(255,140,0,0.1); border: 1px solid orange; padding: 5px 12px; border-radius: 10px; display: flex; align-items: center; gap: 5px;">
+                            <span style="color: orange; font-size: 14px;">💰</span>
+                            <span style="color: white; font-weight: bold; font-size: 13px;">${formattedSaldo}</span>
+                        </div>
+                        <div id="profil-toggle" style="display: flex; align-items: center; gap: 8px; cursor: pointer;" onclick="window.toggleMenu()">
+                            <p style="color: white; font-weight: 600; font-size: 13px; margin: 0;">${currentUsername}</p>
+                            <!-- src diganti menjadi variabel fotoProfil -->
+                            <img src="${fotoProfil}" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid orange; object-fit: cover;">
+                        </div>
+                    </div>
+                `;
+
+                // --- UPDATE TAMPILAN MENU DROPDOWN ---
+                userMenu.innerHTML = `
+                    <div style="text-align:center;">
+                        <!-- Kamu juga bisa tambahkan foto besar di sini jika mau -->
+                        <img src="${fotoProfil}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid orange; margin-bottom: 10px; object-fit: cover;">
+                        <p style="color:white; font-weight:bold; font-size:14px;">👋 ${currentUsername}</p>
+                        <p style="color:gray; font-size:11px; margin-bottom:15px;">${currentEmail}</p>
+                        <button onclick="window.location.href='profil.html'" style="width:100%; background:transparent; border:1px solid orange; color:orange; padding:8px; border-radius:8px; margin-bottom:10px; cursor:pointer;">Lihat Profil</button>
+                        <button onclick="window.handleLogout()" style="width:100%; background:orange; border:none; color:black; padding:8px; border-radius:8px; cursor:pointer; font-weight:bold;">Keluar</button>
+                    </div>`;
+            } else {
+                console.log("Dokumen user tidak ditemukan di Firestore!");
+            }
+        });
+    }
+});
+            // Jika user TIDAK login, tampilkan tombol Masuk dan Daftar
+            authArea.innerHTML = `
+                <a href="Masuk.html" style="color:white; text-decoration:none; margin-right:15px; font-size:14px;">Masuk</a>
+                <a href="Daftar.html" style="background:orange; color:black; padding:8px 16px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:14px;">Daftar</a>
+            `;
+            userMenu.style.display = "none";
+        
+
+    // --- FUNGSI GLOBAL ---
+    // Dipasang ke 'window' agar bisa dipanggil dari atribut onclick di HTML
+
+    window.toggleMenu = () => {
+        userMenu.style.display = (userMenu.style.display === "block") ? "none" : "block";
+    };
+
+    window.handleLogout = () => {
+        if(confirm("Apakah Anda yakin ingin keluar?")) {
+            signOut(auth).then(() => {
+                // Gunakan reload atau redirect ke halaman login setelah logout
+                window.location.reload();
+            }).catch((error) => {
+                console.error("Gagal Logout:", error);
+            });
+        }
+    };
+</script>
+
+<script>
+    // Jika URL mengandung #produk-section saat baru dibuka
+    window.addEventListener('load', () => {
+        if (window.location.hash === '#produk-section') {
+            const element = document.getElementById('produk-section');
+            if (element) {
+                // Memberikan sedikit delay agar transisi halaman selesai dulu
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            }
+        }
+    });
+</script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // Cek apakah ada instruksi scroll dari halaman profil
+        if (localStorage.getItem('scrollToProduk') === 'true') {
+            
+            let attempts = 0;
+            const maxAttempts = 50; // Mencoba selama 5 detik (50 x 100ms)
+
+            const scrollInterval = setInterval(() => {
+                const target = document.getElementById('produk-section');
+                attempts++;
+
+                if (target) {
+                    // Jika elemen ketemu, hentikan pencarian dan scroll
+                    clearInterval(scrollInterval);
+                    localStorage.removeItem('scrollToProduk'); // Hapus tanda agar tidak scroll terus tiap refresh
+
+                    setTimeout(() => {
+                        const offset = 100; // Jarak agar tidak tertutup navbar
+                        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
+                }
+
+                if (attempts >= maxAttempts) {
+                    clearInterval(scrollInterval);
+                    localStorage.removeItem('scrollToProduk');
+                }
+            }, 100); // Cek setiap 0.1 detik
+        }
+    });
+</script>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <!-- Bagian Branding & Sosmed -->
+        <div class="footer-brand">
+            <h2 class="footer-logo">LYY <span>STORE</span></h2>
+            <p>Premium digital tools, panel & file terpercaya. Update rutin, support 24/7, anti-ban.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <!-- Kolom Link Produk -->
+        <div class="footer-links">
+            <h4>PRODUK</h4>
+            <ul>
+                <li><a href="#shop-section">Mod Menu FreeFire</a></li>
+                <li><a href="#shop-section">File FreeFire</a></li>
+            </ul>
+        </div>
+
+        <!-- Kolom Link Akun -->
+        <div class="footer-links">
+            <h4>AKUN</h4>
+            <ul>
+                <li><a href="Masuk.html">Masuk</a></li>
+                <li><a href="Daftar.html">Daftar</a></li>
+                <li><a href="topup.html">Topup Saldo</a></li>
+                <li><a href="profil.html">Riwayat Order</a></li>
+            </ul>
+        </div>
+
+        <!-- Kolom Link Info -->
+        <div class="footer-links">
+            <h4>INFO</h4>
+            <ul>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#cara-order">Cara Order</a></li>
+                <li><a href="#">Syarat & Kebijakan</a></li>
+                <li><a href="#">Kontak Kami</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Garis Bawah & Copyright -->
+    <div class="footer-bottom">
+        <div class="container-bottom">
+            <p>&copy; 2026 LYY STORE — All rights reserved</p>
+            <div class="bottom-legal">
+                <a href="#">Syarat</a>
+                <a href="#">Privasi</a>
+                <a href="#">Kontak</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

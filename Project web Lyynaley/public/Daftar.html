@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Akun</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+
+      background: #140800;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 100vh;
+
+      color: white;
+    }
+
+    /* BOX LOGIN */
+    .box {
+      width: 320px;
+      padding: 25px;
+
+      background: rgba(0,0,0,0.6);
+      border: 1px solid orange;
+      border-radius: 12px;
+
+      text-align: center;
+
+      box-shadow: 0 0 20px rgba(255,140,0,0.2);
+    }
+
+    h2 {
+      color: orange;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+
+      border: none;
+      border-radius: 6px;
+
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+
+      background: orange;
+      border: none;
+      border-radius: 6px;
+
+      font-weight: bold;
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff9900;
+      box-shadow: 0 0 10px orange;
+    }
+
+    /* HOME BUTTON */
+    .home {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+
+      color: orange;
+      text-decoration: none;
+
+      border: 1px solid orange;
+      padding: 6px 12px;
+      border-radius: 8px;
+
+      transition: 0.3s;
+    }
+
+    .home:hover {
+      background: orange;
+      color: white;
+      box-shadow: 0 0 15px orange;
+    }
+
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="home">🏠 Home</a>
+
+<div class="box">
+  <h2>Daftar Akun</h2>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="registerUser()">Daftar</button>
+</div>
+
+<!-- 🔥 FIREBASE LOGIN SYSTEM (TIDAK DIUBAH) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyATMm7NhnDgOI3klh2EiV7xkb9GMIoUWHg",
+  authDomain: "lyynaleyxiters.firebaseapp.com",
+  projectId: "lyynaleyxiters",
+  appId: "1:85048055336:web:4a8b07e8ef32690e36871d"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// --- TARUH ASYNC FUNCTION DI SINI ---
+    async function handleRegister(email, password, username) {
+        try {
+            // Buat akun di Firebase Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Simpan data ke Firestore agar dashboard langsung sinkron
+            await setDoc(doc(db, "users", user.uid), {
+                username: username,
+                email: email,
+                saldo: 0,
+                role: "member",
+                createdAt: new Date().toISOString()
+            });
+
+            alert("Pendaftaran Berhasil! Profil Anda sudah siap.");
+            window.location.href = "dashboard.html"; 
+        } catch (error) {
+            alert("Gagal mendaftar: " + error.message);
+        }
+    }
+
+    // 3. Panggil fungsi saat tombol diklik
+    document.getElementById("btn-daftar").addEventListener("click", () => {
+        const email = document.getElementById("input-email").value;
+        const pass = document.getElementById("input-password").value;
+        const user = document.getElementById("input-username").value;
+        
+        handleRegister(email, pass, user);
+    });
+
+// REGISTER
+window.registerUser = function () {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("Daftar berhasil!");
+      window.location.href = "Masuk.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+      console.log(error.code);
+    });
+
+};
+</script>
+
+</body>
+</html>
